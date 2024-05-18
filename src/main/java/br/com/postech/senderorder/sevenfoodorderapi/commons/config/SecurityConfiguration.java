@@ -1,4 +1,4 @@
-package br.com.postech.senderorder.sevenfoodorderapi.commons.config;
+/*package br.com.postech.senderorder.sevenfoodorderapi.commons.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -22,4 +22,4 @@ public class SecurityConfiguration  {
 
         return http.build();// Configura o formulário de login padrão do Spring Security
     }
-}
+}*/

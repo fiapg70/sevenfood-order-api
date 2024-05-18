@@ -1,4 +1,4 @@
-package br.com.postech.senderorder.sevenfoodorderapi.commons.config;
+/*package br.com.postech.senderorder.sevenfoodorderapi.commons.config;
 
 import com.amazonaws.auth.AWSStaticCredentialsProvider;
 import com.amazonaws.auth.BasicAWSCredentials;
@@ -27,4 +27,4 @@ public class CognitoConfig {
                 .withRegion(Regions.US_EAST_1) // Defina a região correta
                 .build();
     }
-}
+}*/

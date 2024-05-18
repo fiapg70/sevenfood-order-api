@@ -12,7 +12,7 @@ import java.util.List;
 @AllArgsConstructor
 @Builder
 public class OrderPreparation {
-    private Long id;
-    private String name;
+    private String clientId;
+    private String orderId;
     private List<Product> products;
 }

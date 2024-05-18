@@ -11,7 +11,6 @@ import java.util.List;
 @Mapper(componentModel = "spring")
 public interface OrderApiMapper {
 
-    @Mapping(source = "products", target = "products")
     @Mapping(target = "clientId", source = "clientId")
     Order fromRquest(OrderRequest request);
 

@@ -1,5 +1,6 @@
 package br.com.postech.senderorder.sevenfoodorderapi.infrastructure.entity.queue;
 
+import br.com.postech.senderorder.sevenfoodorderapi.infrastructure.entity.domain.AuditDomain;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.persistence.*;
@@ -15,8 +16,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Tag(name = "Restaurant object")
-public class QueueOrderEntity {
-
+public class QueueOrderEntity extends AuditDomain {
 
     @Schema(description = "Unique identifier of the Product.",
             example = "1", required = true)
@@ -25,6 +25,6 @@ public class QueueOrderEntity {
     @Column(nullable = false)
     private Long id;
 
-    private String json;
+    private String message;
 
 }

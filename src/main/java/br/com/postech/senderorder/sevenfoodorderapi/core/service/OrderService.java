@@ -1,6 +1,7 @@
 package br.com.postech.senderorder.sevenfoodorderapi.core.service;
 
 import br.com.postech.senderorder.sevenfoodorderapi.core.entities.Order;
+import br.com.postech.senderorder.sevenfoodorderapi.core.entities.Product;
 import br.com.postech.senderorder.sevenfoodorderapi.core.ports.in.order.*;
 import br.com.postech.senderorder.sevenfoodorderapi.core.ports.out.OrderRepositoryPort;
 import lombok.AllArgsConstructor;
@@ -16,14 +17,14 @@ public class OrderService implements CreateOrderPort, UpdateOrderPort, FindByIdO
     private final OrderRepositoryPort orderRepository;
 
     @Override
-    public Order save(Order order) {
-        return orderRepository.save(order);
+    public Order save(Order order, List<Product> products) {
+        return orderRepository.save(order, products);
     }
 
     @Override
     public Order update(Long id, Order order) {
 
-            return orderRepository.update(id, order);
+        return orderRepository.update(id, order);
 
     }
 
@@ -34,7 +35,7 @@ public class OrderService implements CreateOrderPort, UpdateOrderPort, FindByIdO
 
     @Override
     public List<Order> findAll() {
-       return orderRepository.findAll();
+        return orderRepository.findAll();
     }
 
     @Override

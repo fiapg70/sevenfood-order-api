@@ -1,7 +1,8 @@
-package br.com.postech.senderorder.sevenfoodorderapi.core.service;
+/*package br.com.postech.senderorder.sevenfoodorderapi.core.service;
 
 import com.amazonaws.services.cognitoidp.AWSCognitoIdentityProvider;
 import com.amazonaws.services.cognitoidp.model.*;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -86,4 +87,4 @@ public class UserService {
         }
         return result.toString();
     }
-}
+}*/

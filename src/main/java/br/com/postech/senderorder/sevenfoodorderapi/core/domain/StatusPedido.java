@@ -4,9 +4,10 @@ public enum StatusPedido {
 
     EM_PROCESSAMENTO("Em Processamento", 0L),
     RECEBIDO("Recebido", 1L),
-    EM_PREPARACAO("Em Preparacao", 2L),
-    PRONTO("Pronto", 3L),
-    FINALIZADO("Finalizado", 4L);
+    ENVIADO_PRODUCAO("Enviado para Produção", 2L),
+    EM_PREPARACAO("Em Preparacao", 3L),
+    PRONTO("Pronto", 4L),
+    FINALIZADO("Finalizado", 5L);
 
     private final String status;
     private final Long cod;

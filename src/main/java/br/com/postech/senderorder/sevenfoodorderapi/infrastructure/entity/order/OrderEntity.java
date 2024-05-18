@@ -6,18 +6,7 @@ import br.com.postech.senderorder.sevenfoodorderapi.infrastructure.entity.produc
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.EnumType;
-import jakarta.persistence.Enumerated;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
@@ -25,6 +14,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 @Entity
@@ -43,7 +33,7 @@ public class OrderEntity extends AuditDomain {
     @Column(nullable = false)
     private Long id;
 
-    @Schema(description = "name of the Product.",
+    @Schema(description = "Code of the Product.",
             example = "V$", required = true)
     @NotNull(message = "o campo \"name\" é obrigario")
     @Size(min = 3, max = 255)
@@ -53,25 +43,23 @@ public class OrderEntity extends AuditDomain {
     @Schema(description = "Client of the User.",
             example = "1", required = true, ref = "User")
     @NotNull
-    @ManyToOne
-    @JoinColumn(name = "client_id")
-    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @Column(name = "client_id")
     private String clientId;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "tb_order_product",
             joinColumns = @JoinColumn(name = "order_id"),
             inverseJoinColumns = @JoinColumn(name = "product_id")
     )
     private List<ProductEntity> products;
 
-    @Column(name = "status", nullable = false)
+    @Column(name = "status_pedido", nullable = false)
     @NotNull(message = "o campo \"status\" é obrigario")
     @Enumerated(EnumType.STRING)
     private StatusPedido statusPedido;
 
     @Column(name = "total_price", nullable = false)
-    private Double totalPrice;
+    private BigDecimal totalPrice;
 
     public void update(Long id, OrderEntity order) {
         this.id = id;

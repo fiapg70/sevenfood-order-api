@@ -34,7 +34,7 @@ public class ProductEntity extends AuditDomain {
     @Schema(description = "description of the Product.",
             example = "V$", required = false)
     @Size(min = 0, max = 255)
-    @Column(name = "description", length = 255)
+    @Column(name = "product_id", length = 255)
     private String productId;
 
     @Schema(description = "price of the Product.",

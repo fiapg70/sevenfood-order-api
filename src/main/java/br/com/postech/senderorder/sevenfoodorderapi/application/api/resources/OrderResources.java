@@ -10,6 +10,8 @@ import br.com.postech.senderorder.sevenfoodorderapi.core.domain.StatusPedido;
 import br.com.postech.senderorder.sevenfoodorderapi.core.entities.Order;
 import br.com.postech.senderorder.sevenfoodorderapi.core.entities.Product;
 import br.com.postech.senderorder.sevenfoodorderapi.core.ports.in.order.*;
+import br.com.postech.senderorder.sevenfoodorderapi.core.ports.in.product.CreateProductPort;
+import br.com.postech.senderorder.sevenfoodorderapi.core.service.ProductService;
 import ch.qos.logback.core.net.server.Client;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -56,12 +58,13 @@ public class OrderResources {
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<OrderResponse> save(@Valid @RequestBody OrderRequest request) {
-        String clientId = request.getClientId();
-        List<Product> products = productApiMapper.map(request.getProducts());
-        Order order = new Order();
-        order.createOrder(clientId, products);
         log.info("Chegada: {}", request);
-        Order saved = createOrderPort.save(order);
+
+        List<ProductRequest> products = request.getProducts();
+        List<Product> productList = productApiMapper.map(products);
+
+        Order order = orderApiMapper.fromRquest(request);
+        Order saved = createOrderPort.save(order, productList);
 
         OrderResponse orderResponse = orderApiMapper.fromEntidy(saved);
         if (orderResponse == null) {

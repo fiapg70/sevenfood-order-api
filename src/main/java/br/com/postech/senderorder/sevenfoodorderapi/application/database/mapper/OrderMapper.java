@@ -1,8 +1,6 @@
 package br.com.postech.senderorder.sevenfoodorderapi.application.database.mapper;
 
-import br.com.postech.senderorder.sevenfoodorderapi.core.domain.StatusPedido;
 import br.com.postech.senderorder.sevenfoodorderapi.core.entities.Order;
-import br.com.postech.senderorder.sevenfoodorderapi.core.entities.Product;
 import br.com.postech.senderorder.sevenfoodorderapi.infrastructure.entity.order.OrderEntity;
 import org.mapstruct.InheritInverseConfiguration;
 import org.mapstruct.Mapper;
@@ -14,7 +12,6 @@ import java.util.List;
 public interface OrderMapper {
 
     @Mapping(source = "code", target = "code")
-    @Mapping(source = "products", target = "products")
     @Mapping(source = "clientId", target = "clientId")
     @Mapping(source = "statusPedido", target = "statusPedido")
     @Mapping(source = "totalPrice", target = "totalPrice")

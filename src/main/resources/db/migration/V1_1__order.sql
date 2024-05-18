@@ -1,7 +1,9 @@
-create table tb_restaurant (
+create table tb_order (
     id bigserial not null,
-    name varchar(255) not null,
-    cnpj varchar(255) not null,
+    code varchar(255) not null,
+    client_id varchar(255) not null,
+    status_pedido varchar(255) not null,
+    total_price numeric(10,2) not null,
     create_by varchar(255) not null,
     created_date timestamp(6) not null,
     last_modified_by varchar(255),
