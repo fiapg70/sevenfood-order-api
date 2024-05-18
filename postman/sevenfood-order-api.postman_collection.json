@@ -1,0 +1,105 @@
+{
+	"info": {
+		"_postman_id": "c1e821ea-5813-4196-8a1e-fb1515b94679",
+		"name": "sevenfood-order-api",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Send-Order",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "\n{\n    \"clientId\": \"76fb2f44-aaad-4ccd-a685-4b2dd33ef1c2\",\n    \"products\": [\n        {\n            \"productId\": \"5225c191-fc91-4d8e-b484-13bcce2a835c\",\n            \"price\": 1.99\n        },\n        {\n            \"productId\": \"a88da3d1-5437-4e72-915b-ae3f139ba5a8\",\n            \"price\": 2.99\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:9996/api/v1/orders",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "9996",
+					"path": [
+						"api",
+						"v1",
+						"orders"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET-Payment",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "\n{\n    \"transactionAmount\": 0.01,\n    \"description\": \"Como X Salada\",\n    \"clientId\": \"76fb2f44-aaad-4ccd-a685-4b2dd33ef1c2\",\n    \"orders\": [\n        {\n            \"id\": \"ORD-001\"\n        },\n        {\n            \"id\": \"ORD-002\"\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8888/api/v1/payments",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8888",
+					"path": [
+						"api",
+						"v1",
+						"payments"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GET-Payment-ById",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "\n{\n    \"transactionAmount\": 0.01,\n    \"description\": \"Como X Salada\",\n    \"clientId\": \"76fb2f44-aaad-4ccd-a685-4b2dd33ef1c2\",\n    \"orders\": [\n        {\n            \"id\": \"ORD-001\"\n        },\n        {\n            \"id\": \"ORD-002\"\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8888/api/v1/payments",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8888",
+					"path": [
+						"api",
+						"v1",
+						"payments"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
