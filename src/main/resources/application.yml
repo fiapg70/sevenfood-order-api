@@ -44,14 +44,17 @@ spring:
       credentials:
         access-key: ${AWS_ACCESS_KEY_ID}
         secret-key: ${AWS_SECRET_ACCESS_KEY}
-    region:
-      static: us-east-1
+      region:
+        static: us-east-1
+    sqs:
+      enabled: true
+      endpoint: ${AWS_ENDPOINT_URL}
   security:
     oauth2:
       client:
         provider:
           cognito:
-            issuer-uri: https://cognito-idp.us-east-1.amazonaws.com/us-east-1_lLiNIC87U
+            issuer-uri: ${AWS_COGNITO_ISSUER_URI}
         registration:
           cognito:
             client-id: ${AWS_COGNITO_CLIENT_ID}
@@ -61,11 +64,16 @@ spring:
 application:
   security:
     jwt:
-      secret-key: 404E635266556A586E3272357538782F413F4428472B4B6250645367566B5970
+      secret-key: ${JWT_SECRET_KEY}
       expiration: 864000000 # 10 day
       refresh-token:
         expiration: 6048000000 # 70 days
 
 cognito:
-  user-pool-id: us-east-1_lLiNIC87U
+  user-pool-id: ${AWS_COGNITO_USER_POOL_ID}
 
+app:
+  queue-sqs:
+    name: ${AWS_SQS_QUEUE_NAME}
+  queue-status-sqs:
+    name: ${AWS_SQS_QUEUE_STATUS_NAME}

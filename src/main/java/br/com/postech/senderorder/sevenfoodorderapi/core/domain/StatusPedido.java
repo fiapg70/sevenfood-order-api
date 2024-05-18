@@ -24,6 +24,7 @@ public enum StatusPedido {
     public Long getCod() {
         return cod;
     }
+
     public static StatusPedido getByCod(Long cod) {
         for (StatusPedido statusPedidoEnum : values()) {
             if (statusPedidoEnum.getCod().equals(cod)) {
