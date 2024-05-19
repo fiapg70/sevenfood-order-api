@@ -16,5 +16,5 @@ import java.math.BigDecimal;
 public class Product implements Serializable {
     private Long id;
     private String productId;
-    private BigDecimal price;
+    private Integer quantity;
 }

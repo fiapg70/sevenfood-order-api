@@ -13,7 +13,7 @@ import java.util.List;
 public interface ProductApiMapper {
 
     @Mapping(source = "productId", target = "productId")
-    @Mapping(source = "price", target = "price")
+    @Mapping(source = "quantity", target = "quantity")
     Product fromRquest(ProductRequest request);
 
     @InheritInverseConfiguration

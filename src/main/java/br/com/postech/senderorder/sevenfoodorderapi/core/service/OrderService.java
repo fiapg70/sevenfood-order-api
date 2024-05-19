@@ -34,6 +34,11 @@ public class OrderService implements CreateOrderPort, UpdateOrderPort, FindByIdO
     }
 
     @Override
+    public Order findByCode(String code) {
+        return orderRepository.findByCode(code);
+    }
+
+    @Override
     public List<Order> findAll() {
         return orderRepository.findAll();
     }

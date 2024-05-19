@@ -11,4 +11,5 @@ public interface OrderRepositoryPort {
     Order findById(Long id);
     List<Order> findAll();
     Order update(Long id, Order order);
+    Order findByCode(String code);
 }

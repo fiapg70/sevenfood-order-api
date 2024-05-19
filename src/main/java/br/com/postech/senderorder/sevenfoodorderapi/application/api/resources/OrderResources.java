@@ -107,11 +107,11 @@ public class OrderResources {
         List<Order> orderList = findOrdersPort.findAll();
         List<OrderResponse> orderResponse = orderApiMapper.mapResponse(orderList);
 
-        orderResponse = orderResponse.stream()
+        /*orderResponse = orderResponse.stream()
                 .filter(o -> ALLOWED_STATUS.contains((o.getStatusPedido())))
                 .collect(Collectors.toList());
 
-        orderResponse.sort(new OrderResponse());
+        orderResponse.sort(new OrderResponse());*/
 
         return orderResponse.isEmpty() ?
                 ResponseEntity.noContent().build() :

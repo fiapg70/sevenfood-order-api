@@ -12,7 +12,7 @@ import java.util.List;
 public interface ProductMapper {
 
     @Mapping(source = "productId", target = "productId")
-    @Mapping(source = "price", target = "price")
+    @Mapping(source = "quantity", target = "quantity")
     ProductEntity fromModelTpEntity(Product product);
 
     @InheritInverseConfiguration

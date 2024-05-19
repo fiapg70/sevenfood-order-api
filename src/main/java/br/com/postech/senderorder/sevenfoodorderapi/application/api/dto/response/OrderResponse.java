@@ -19,16 +19,16 @@ import java.util.List;
 @Tag(name = "Product object")
 public class OrderResponse implements Comparator<OrderResponse> {
 
-    private ClientResponse client;
-
     @Schema(description = "Unique identifier of the Driver.",
             example = "1", required = true)
     private Long id;
 
+    private String clientId;
+
     @Schema(description = "Name of the Product.",
             example = "Vicente", required = true)
     @Size(min = 3, max = 255)
-    private String code;
+    private String orderId;
 
     @Schema(description = "Description of the Product.",
             example = "Vicente", required = true)

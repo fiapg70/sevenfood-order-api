@@ -8,7 +8,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 
 @Data
 @Builder
@@ -21,5 +20,5 @@ public class ProductRequest implements Serializable {
             example = "1", required = true)
     private String productId;
 
-    private BigDecimal price;
+    private Integer quantity;
 }

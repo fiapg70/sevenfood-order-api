@@ -16,8 +16,10 @@ public interface OrderApiMapper {
 
     @InheritInverseConfiguration
     @Mapping(target = "id", source = "id")
+    @Mapping(target = "orderId", source = "code")
     OrderResponse fromEntidy(Order order);
 
     List<Order> map(List<OrderRequest> orders);
+
     List<OrderResponse> mapResponse(List<Order> orders);
 }

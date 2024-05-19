@@ -37,6 +37,14 @@ public class ProductEntity extends AuditDomain {
     @Column(name = "product_id", length = 255)
     private String productId;
 
+    @Schema(description = "description of the Product.",
+            example = "V$", required = false)
+    @Size(min = 0, max = 255)
+    @Column(name = "product_name", length = 255)
+    private String name;
+
+    private Integer quantity;
+
     @Schema(description = "price of the Product.",
             example = "V$", required = true)
     @NotNull(message = "o campo \"price\" é obrigario")
@@ -45,6 +53,5 @@ public class ProductEntity extends AuditDomain {
     public void update(Long id, Product product) {
         this.id = id;
         this.productId = product.getProductId();
-        this.price = product.getPrice();
     }
 }
