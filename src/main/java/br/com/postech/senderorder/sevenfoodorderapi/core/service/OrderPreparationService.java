@@ -87,7 +87,7 @@ public class OrderPreparationService {
             OrderStatusDTO orderStatusDTO = objectMapper.readValue(payload, OrderStatusDTO.class);
 
             orderRepository.findByCode(orderStatusDTO.getOrderId()).ifPresent(order -> {
-                order.setStatusPedido(StatusPedido.getByCod(orderStatusDTO.getStatusPedido()));
+                order.setStatusPedido(StatusPedido.getByCode(orderStatusDTO.getStatusPedido()));
                 orderRepository.save(order);
             });
 

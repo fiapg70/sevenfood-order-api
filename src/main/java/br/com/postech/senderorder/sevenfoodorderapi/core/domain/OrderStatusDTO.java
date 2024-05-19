@@ -11,5 +11,5 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class OrderStatusDTO {
     private String orderId;
-    private Long statusPedido;
+    private Integer statusPedido;
 }

@@ -1,6 +1,7 @@
 package br.com.postech.senderorder.sevenfoodorderapi.core.entities;
 
 import br.com.postech.senderorder.sevenfoodorderapi.core.domain.StatusPedido;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -12,7 +13,7 @@ import java.io.Serializable;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-//@Tag(name = "Resident object")
+@Tag(name = "Resident object")
 public class Order implements Serializable {
     private Long id;
     private String clientId;
