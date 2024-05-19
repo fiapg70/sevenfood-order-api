@@ -1,0 +1,49 @@
+{
+  "client": {
+    "id": 1,
+    "name": "Luara Balestero da Mata",
+    "cpf": "123.456.789-00",
+    "restaurant": {
+      "id": 10,
+      "name": "Restaurante Saboroso",
+      "cnpj": "12.345.678/0001-99"
+    }
+  },
+  "id": 100,
+  "code": "OR-001",
+  "products": [
+    {
+      "id": 1,
+      "name": "Pizza Margherita",
+      "description": "Pizza clássica com molho de tomate e queijo",
+      "price": 29.99,
+      "pic": "imagem-pizza-margherita.jpg",
+      "productCategory": {
+        "id": 1,
+        "name": "Pizzas"
+      },
+      "restaurant": {
+        "id": 10,
+        "name": "Restaurante Saboroso",
+        "cnpj": "12.345.678/0001-99"
+      }
+    },
+    {
+      "id": 2,
+      "name": "Lasanha à Bolonhesa",
+      "description": "Lasanha recheada com carne moída e molho à bolonhesa",
+      "price": 34.99,
+      "pic": "imagem-lasanha-bolonhesa.jpg",
+      "productCategory": {
+        "id": 2,
+        "name": "Massas"
+      },
+      "restaurant": {
+        "id": 10,
+        "name": "Restaurante Saboroso",
+        "cnpj": "12.345.678/0001-99"
+      }
+    }
+  ],
+  "statusPedido": "EM_PREPARACAO"
+}
