@@ -46,8 +46,8 @@ Foi utilizado o PostgreSQL para armazenar os dados. A infraestrutura está conti
 1. **Clone o repositório:**
 
    ```bash
-   git clone https://github.com/seu-usuario/seu-repositorio.git
-   cd seu-repositorio
+   git clone https://github.com/fiapg70/sevenfood-order-api.git
+   cd sevenfood-order-api
 
 ### Banco de Dados:
 Para rodar o Banco local só rodar o docker compose da pasta postgres, com o comando 
