@@ -7,6 +7,7 @@ import br.com.postech.senderorder.sevenfoodorderapi.core.entities.Order;
 import br.com.postech.senderorder.sevenfoodorderapi.core.entities.Product;
 import br.com.postech.senderorder.sevenfoodorderapi.core.ports.out.OrderRepositoryPort;
 import br.com.postech.senderorder.sevenfoodorderapi.gateway.dto.PaymentDto;
+import br.com.postech.senderorder.sevenfoodorderapi.gateway.dto.PaymentResponseDto;
 import br.com.postech.senderorder.sevenfoodorderapi.gateway.dto.ProductResponde;
 import br.com.postech.senderorder.sevenfoodorderapi.gateway.product.ProductWebClient;
 import br.com.postech.senderorder.sevenfoodorderapi.gateway.product.PaymentWebClient;
@@ -71,8 +72,13 @@ public class OrderRepositoryAdapter implements OrderRepositoryPort {
                     .transactionAmount(saved.getTotalPrice())
                     .build();
 
-            paymentWebClient.setPayment(paymentDto);
-            return orderMapper.fromEntityToModel(saved);
+            PaymentResponseDto paymentResponseDto = paymentWebClient.setPayment(paymentDto);
+            log.info("PaymentResponseDto: {}", paymentResponseDto);
+
+            Order orderResponse = orderMapper.fromEntityToModel(saved);
+            orderResponse.setQrCodeBase64(paymentResponseDto.getQrCodeBase64());
+            orderResponse.setQrCode(paymentResponseDto.getQrCode());
+            return orderResponse;
         } catch (Exception e) {
             log.error("Error to save order", e);
             throw new RuntimeException("Order already exists");

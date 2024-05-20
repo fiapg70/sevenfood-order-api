@@ -19,6 +19,8 @@ public interface OrderMapper {
 
     @InheritInverseConfiguration
     @Mapping(target = "id", source = "id")
+    @Mapping(target = "code", source = "code")
+    @Mapping(target = "products", source = "products")
     Order fromEntityToModel(OrderEntity orderEntity);
 
     List<Order> map(List<OrderEntity> orderEntities);

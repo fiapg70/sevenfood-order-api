@@ -138,6 +138,26 @@ public class OrderResources {
         return ResponseEntity.noContent().build();
     }
 
+    @Operation(
+            summary = "Retrieve a Order by Id",
+            description = "Get a Order object by specifying its id. The response is Association object with id, title, description and published status.",
+            tags = {"orders", "get"})
+    @ApiResponses({
+            @ApiResponse(responseCode = "200", content = {@Content(schema = @Schema(implementation = OrderResources.class), mediaType = "application/json")}),
+            @ApiResponse(responseCode = "404", content = {@Content(schema = @Schema())}),
+            @ApiResponse(responseCode = "500", content = {@Content(schema = @Schema())})})
+    @GetMapping("/code/{code}")
+    @ResponseStatus(HttpStatus.OK)
+    public ResponseEntity<OrderResponse> findByOrder(@PathVariable("code") String code) {
+        Order orderSaved = findByIdOrderPort.findByCode(code);
+        if (orderSaved != null) {
+            OrderResponse orderResponse = orderApiMapper.fromEntidy(orderSaved);
+            return ResponseEntity.ok(orderResponse);
+        }
+
+        return ResponseEntity.noContent().build();
+    }
+
     @Operation(summary = "Delete a Order by Id", tags = {"ordertrus", "delete"})
     @ApiResponses({@ApiResponse(responseCode = "204", content = {@Content(schema = @Schema())}),
             @ApiResponse(responseCode = "500", content = {@Content(schema = @Schema())})})

@@ -17,6 +17,11 @@ public interface OrderApiMapper {
     @InheritInverseConfiguration
     @Mapping(target = "id", source = "id")
     @Mapping(target = "orderId", source = "code")
+    @Mapping(target = "statusPedido", source = "statusPedido")
+    @Mapping(target = "products", source = "products")
+    @Mapping(target = "totalPrice", source = "totalPrice")
+    @Mapping(target = "qrCodeBase64", source = "qrCodeBase64")
+    @Mapping(target = "qrCode", source = "qrCode")
     OrderResponse fromEntidy(Order order);
 
     List<Order> map(List<OrderRequest> orders);

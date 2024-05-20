@@ -9,6 +9,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
 import java.util.Comparator;
 import java.util.List;
 
@@ -36,6 +37,11 @@ public class OrderResponse implements Comparator<OrderResponse> {
     private List<ProductResponse> products;
 
     private StatusPedido statusPedido;
+
+    private BigDecimal totalPrice;
+
+    private String qrCodeBase64;
+    private String qrCode;
 
     @Override
     public int compare(OrderResponse o1, OrderResponse o2) {
