@@ -1,49 +1,56 @@
 {
-  "client": {
-    "id": 1,
-    "name": "Luara Balestero da Mata",
-    "cpf": "123.456.789-00",
-    "restaurant": {
-      "id": 10,
-      "name": "Restaurante Saboroso",
-      "cnpj": "12.345.678/0001-99"
-    }
-  },
-  "id": 100,
-  "code": "OR-001",
+  "id": 5,
+  "clientId": "58070d0f-c48d-4571-b8ad-84b2169a402d",
+  "orderId": "2be08cb0-764e-42a3-937b-333432ffcbaa",
   "products": [
     {
-      "id": 1,
-      "name": "Pizza Margherita",
-      "description": "Pizza clássica com molho de tomate e queijo",
-      "price": 29.99,
-      "pic": "imagem-pizza-margherita.jpg",
-      "productCategory": {
-        "id": 1,
-        "name": "Pizzas"
-      },
-      "restaurant": {
-        "id": 10,
-        "name": "Restaurante Saboroso",
-        "cnpj": "12.345.678/0001-99"
-      }
+      "id": 21,
+      "name": "Coca-Cola lata",
+      "description": null,
+      "price": 9.90,
+      "pic": null,
+      "productCategory": null,
+      "restaurant": null
     },
     {
-      "id": 2,
-      "name": "Lasanha à Bolonhesa",
-      "description": "Lasanha recheada com carne moída e molho à bolonhesa",
-      "price": 34.99,
-      "pic": "imagem-lasanha-bolonhesa.jpg",
-      "productCategory": {
-        "id": 2,
-        "name": "Massas"
-      },
-      "restaurant": {
-        "id": 10,
-        "name": "Restaurante Saboroso",
-        "cnpj": "12.345.678/0001-99"
-      }
+      "id": 22,
+      "name": "X-SALADA",
+      "description": null,
+      "price": 29.90,
+      "pic": null,
+      "productCategory": null,
+      "restaurant": null
+    },
+    {
+      "id": 23,
+      "name": "X-TUDO",
+      "description": null,
+      "price": 39.90,
+      "pic": null,
+      "productCategory": null,
+      "restaurant": null
+    },
+    {
+      "id": 24,
+      "name": "Porção Batata",
+      "description": null,
+      "price": 19.90,
+      "pic": null,
+      "productCategory": null,
+      "restaurant": null
+    },
+    {
+      "id": 25,
+      "name": "Chocolate",
+      "description": null,
+      "price": 4.90,
+      "pic": null,
+      "productCategory": null,
+      "restaurant": null
     }
   ],
-  "statusPedido": "EM_PREPARACAO"
+  "statusPedido": "EM_PROCESSAMENTO",
+  "totalPrice": 104.50,
+  "qrCodeBase64": "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",
+  "qrCode": "00020126580014br.gov.bcb.pix0136b76aa9c2-2ec4-4110-954e-ebfe34f05b615204000053039865406104.505802BR5917ROZbEJyumFxcKbsAZ6009Sao Paulo62230519mpqrinter13182486806304F965"
 }

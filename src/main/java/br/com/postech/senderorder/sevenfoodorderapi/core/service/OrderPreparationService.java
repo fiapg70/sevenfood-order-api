@@ -78,7 +78,7 @@ public class OrderPreparationService {
                 );
     }
 
-    //@SqsListener(value = "${app.queue-status-sqs.name}")
+    @SqsListener(value = "${app.queue-status-sqs.name}")
     public void listen(String payload, @Headers Map<String, Object> header, Acknowledgement acknowledgement) {
         try {
             ObjectMapper objectMapper = JsonMapperUtil.getObjectMapper();
