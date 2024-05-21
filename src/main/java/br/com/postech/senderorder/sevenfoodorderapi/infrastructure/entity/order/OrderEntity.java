@@ -61,11 +61,13 @@ public class OrderEntity extends AuditDomain {
     @Column(name = "total_price", nullable = false)
     private BigDecimal totalPrice;
 
+    //todo PENSAR EM UMA MANEIRA MELHOR DE FAZER O UPDATE - REGRAS ->
+    // O PEDIDO SÓ PODE SER ALTERADO SE AINDA NÃO FOI PARA PRODUÇÃO
     public void update(Long id, OrderEntity order) {
         this.id = id;
         this.code = order.getCode();
         this.clientId = order.getClientId();
         this.statusPedido = order.getStatusPedido();
-        //this.products = order.getProducts();
+        this.products = order.getProducts();
     }
 }

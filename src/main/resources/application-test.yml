@@ -10,10 +10,10 @@ spring:
   main:
     allow-circular-references: true
   datasource:
-    url: ${DATABASE_URL}
-    username: ${DATABASE_USERNAME}
-    password: ${DATABASE_PASSWORD}
-    driver-class-name: org.postgresql.Driver
+    url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE;MODE=PostgreSQL
+    username: sa
+    password:
+    driver-class-name: org.h2.Driver
     connectionTimeout: 30000
     idleTimeout: 30000
     max-open-prepared-statements: 250
@@ -26,29 +26,31 @@ spring:
       connection-timeout: '60000'
   jpa:
     hibernate:
-      ddl-auto: validate
+      ddl-auto: create-drop # ou 'update' se quiser manter os dados entre as execuções
     show-sql: true
     properties:
       hibernate:
         format_sql: true
-    database: postgresql
-    database-platform: org.hibernate.dialect.PostgreSQLDialect
-  mvc:
-    pathmatch:
-      matching-strategy: "path-pattern-parser"
+    database: h2
+    database-platform: org.hibernate.dialect.H2Dialect
   flyway:
     baselineOnMigrate: true
-    locations: classpath:db/migration #, classpath:db/callback
-  cloud:
-    aws:
-      credentials:
-        access-key: ${AWS_ACCESS_KEY_ID}
-        secret-key: ${AWS_SECRET_ACCESS_KEY}
-      region:
-        static: us-east-1
-    sqs:
+    locations: classpath:db/migration, classpath:db/callback
+  h2:
+    console:
       enabled: true
-      endpoint: ${AWS_ENDPOINT_URL}
+      path: /h2-console
+
+cloud:
+  aws:
+    credentials:
+      access-key: ${AWS_ACCESS_KEY_ID}
+      secret-key: ${AWS_SECRET_ACCESS_KEY}
+    region:
+      static: us-east-1
+  sqs:
+    enabled: true
+    endpoint: ${AWS_ENDPOINT_URL}
   security:
     oauth2:
       client:
