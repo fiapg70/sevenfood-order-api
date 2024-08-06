@@ -1,5 +1,7 @@
 package br.com.postech.senderorder.sevenfoodorderapi.application.api.dto.response;
 
+import br.com.postech.senderorder.sevenfoodorderapi.gateway.dto.ProductCategoryResponse;
+import br.com.postech.senderorder.sevenfoodorderapi.gateway.dto.RestaurantResponse;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.constraints.Size;

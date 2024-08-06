@@ -77,3 +77,11 @@ app:
     name: ${AWS_SQS_QUEUE_NAME}
   queue-status-sqs:
     name: ${AWS_SQS_QUEUE_STATUS_NAME}
+  product-rest:
+    url: ${SEVENFOOD_PRODUCT_URL}
+  payment-rest:
+    url: ${SEVENFOOD_PAYMENT_URL}
+
+#system:
+  #properties:
+    #java.io.tmpdir: C:/Temp

@@ -14,11 +14,11 @@ public interface ProductApiMapper {
 
     @Mapping(source = "productId", target = "productId")
     @Mapping(source = "quantity", target = "quantity")
-    Product fromRquest(ProductRequest request);
+    Product fromRequest(ProductRequest request);
 
     @InheritInverseConfiguration
     @Mapping(target = "id", source = "id")
-    ProductResponse fromEntidy(Product product);
+    ProductResponse fromEntity(Product product);
 
    List<Product> map(List<ProductRequest> products);
 

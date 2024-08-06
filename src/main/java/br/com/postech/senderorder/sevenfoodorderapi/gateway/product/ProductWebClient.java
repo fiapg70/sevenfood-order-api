@@ -1,16 +1,28 @@
 package br.com.postech.senderorder.sevenfoodorderapi.gateway.product;
 
 import br.com.postech.senderorder.sevenfoodorderapi.gateway.dto.ProductResponde;
+import jakarta.annotation.PostConstruct;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.reactive.function.client.WebClient;
 
 
 @Component
 public class ProductWebClient {
-    private final WebClient webClient;
+
+    @Value("${app.product-rest.url}")
+    private String url;
+
+    private final WebClient.Builder webClientBuilder;
+    private WebClient webClient;
 
     public ProductWebClient(WebClient.Builder webClientBuilder) {
-        this.webClient = webClientBuilder.baseUrl("http://localhost:9992/api/v1").build();
+        this.webClientBuilder = webClientBuilder;
+    }
+
+    @PostConstruct
+    private void init() {
+        this.webClient = webClientBuilder.baseUrl(url).build();
     }
 
     public ProductResponde getProductByCode(String code) {
@@ -19,5 +31,9 @@ public class ProductWebClient {
                 .retrieve()
                 .bodyToMono(ProductResponde.class)
                 .block();
+    }
+
+    private String getUrl() {
+        return url;
     }
 }
