@@ -46,7 +46,7 @@ public class OrderPreparationService {
     }
 
     @PostConstruct
-    @Scheduled(fixedRate = 30000)
+    //@Scheduled(fixedRate = 30000)
     public void sendRequestQueue() {
         ObjectMapper objectMapper = JsonMapperUtil.getObjectMapper();
 

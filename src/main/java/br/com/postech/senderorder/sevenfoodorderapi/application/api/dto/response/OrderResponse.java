@@ -41,6 +41,7 @@ public class OrderResponse implements Comparator<OrderResponse> {
     private BigDecimal totalPrice;
 
     private String qrCodeBase64;
+
     private String qrCode;
 
     @Override

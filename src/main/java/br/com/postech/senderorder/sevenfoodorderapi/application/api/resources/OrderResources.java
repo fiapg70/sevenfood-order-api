@@ -8,6 +8,7 @@ import br.com.postech.senderorder.sevenfoodorderapi.application.api.mappper.Prod
 import br.com.postech.senderorder.sevenfoodorderapi.commons.util.RestUtils;
 import br.com.postech.senderorder.sevenfoodorderapi.core.domain.StatusPedido;
 import br.com.postech.senderorder.sevenfoodorderapi.core.entities.Order;
+import br.com.postech.senderorder.sevenfoodorderapi.core.entities.OrderCreation;
 import br.com.postech.senderorder.sevenfoodorderapi.core.entities.Product;
 import br.com.postech.senderorder.sevenfoodorderapi.core.ports.in.order.*;
 import br.com.postech.senderorder.sevenfoodorderapi.core.ports.in.product.CreateProductPort;
@@ -62,11 +63,12 @@ public class OrderResources {
 
         List<ProductRequest> products = request.getProducts();
         List<Product> productList = productApiMapper.map(products);
+        String clientId = request.getClientId();
 
-        Order order = orderApiMapper.fromRquest(request);
-        Order saved = createOrderPort.save(order, productList);
+        OrderCreation orderCreation = new OrderCreation(clientId, productList);
+        Order saved = createOrderPort.save(orderCreation);
 
-        OrderResponse orderResponse = orderApiMapper.fromEntidy(saved);
+        OrderResponse orderResponse = orderApiMapper.fromEntity(saved);
         if (orderResponse == null) {
             return ResponseEntity.ok().build();
         }
@@ -84,10 +86,10 @@ public class OrderResources {
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.CREATED)
     public ResponseEntity<OrderResponse> update(@PathVariable("id") Long id, @Valid @RequestBody OrderRequest request) {
-        var order = orderApiMapper.fromRquest(request);
+        var order = orderApiMapper.fromRequest(request);
         Order updated = updateOrderPort.update(id, order);
 
-        OrderResponse orderResponse = orderApiMapper.fromEntidy(updated);
+        OrderResponse orderResponse = orderApiMapper.fromEntity(updated);
         if (orderResponse == null) {
             return ResponseEntity.ok().build();
         }
@@ -131,7 +133,7 @@ public class OrderResources {
     public ResponseEntity<OrderResponse> findOne(@PathVariable("id") Long id) {
         Order orderSaved = findByIdOrderPort.findById(id);
         if (orderSaved != null) {
-            OrderResponse orderResponse = orderApiMapper.fromEntidy(orderSaved);
+            OrderResponse orderResponse = orderApiMapper.fromEntity(orderSaved);
             return ResponseEntity.ok(orderResponse);
         }
 
@@ -151,7 +153,7 @@ public class OrderResources {
     public ResponseEntity<OrderResponse> findByOrder(@PathVariable("code") String code) {
         Order orderSaved = findByIdOrderPort.findByCode(code);
         if (orderSaved != null) {
-            OrderResponse orderResponse = orderApiMapper.fromEntidy(orderSaved);
+            OrderResponse orderResponse = orderApiMapper.fromEntity(orderSaved);
             return ResponseEntity.ok(orderResponse);
         }
 
