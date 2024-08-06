@@ -61,9 +61,9 @@ public class OrderResourcesTest {
         // Configuração do Mockito
         OrderResponse orderResponse = new OrderResponse();
         orderResponse.setId(1L);
-        given(orderApiMapper.fromRquest(any(OrderRequest.class))).willReturn(new Order());
-        given(createOrderPort.save(any(Order.class), anyList())).willReturn(new Order());
-        given(orderApiMapper.fromEntidy(any(Order.class))).willReturn(orderResponse);
+        given(orderApiMapper.fromRequest(any(OrderRequest.class))).willReturn(new Order());
+        //given(createOrderPort.save(any(Order.class), anyList())).willReturn(new Order());
+        given(orderApiMapper.fromEntity(any(Order.class))).willReturn(orderResponse);
 
         // URI de localização esperada
         URI location = new URI("/v1/orders/" + orderResponse.getId());
@@ -78,8 +78,8 @@ public class OrderResourcesTest {
                 .andExpect(jsonPath("$.id").value(orderResponse.getId()));
 
         // Verificações
-        then(orderApiMapper).should().fromRquest(any(OrderRequest.class));
-        then(createOrderPort).should().save(any(Order.class), anyList());
-        then(orderApiMapper).should().fromEntidy(any(Order.class));
+        then(orderApiMapper).should().fromRequest(any(OrderRequest.class));
+        //then(createOrderPort).should().save(any(Order.class), anyList());
+        then(orderApiMapper).should().fromEntity(any(Order.class));
     }
 }

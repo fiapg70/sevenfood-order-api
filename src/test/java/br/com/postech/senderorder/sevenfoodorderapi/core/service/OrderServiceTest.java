@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import static org.mockito.Mockito.*;
 import br.com.postech.senderorder.sevenfoodorderapi.core.entities.Order;
+import br.com.postech.senderorder.sevenfoodorderapi.core.entities.OrderCreation;
 import br.com.postech.senderorder.sevenfoodorderapi.core.entities.Product;
 import br.com.postech.senderorder.sevenfoodorderapi.core.ports.out.OrderRepositoryPort;
 import org.junit.jupiter.api.BeforeEach;
@@ -36,10 +37,11 @@ public class OrderServiceTest {
 
     @Test
     void whenSaveOrder_thenOrderIsSaved() {
-        when(orderRepository.save(order, products)).thenReturn(order);
-        Order savedOrder = orderService.save(order, products);
+        OrderCreation orderCreation = new OrderCreation("CODE123", products);
+        when(orderRepository.save(orderCreation)).thenReturn(order);
+        Order savedOrder = orderService.save(orderCreation);
         assertNotNull(savedOrder);
-        verify(orderRepository).save(order, products);
+        verify(orderRepository).save(orderCreation);
     }
 
     @Test

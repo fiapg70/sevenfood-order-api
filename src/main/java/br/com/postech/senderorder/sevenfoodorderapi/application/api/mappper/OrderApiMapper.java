@@ -12,7 +12,7 @@ import java.util.List;
 public interface OrderApiMapper {
 
     @Mapping(target = "clientId", source = "clientId")
-    Order fromRquest(OrderRequest request);
+    Order fromRequest(OrderRequest request);
 
     @InheritInverseConfiguration
     @Mapping(target = "id", source = "id")
@@ -22,7 +22,7 @@ public interface OrderApiMapper {
     @Mapping(target = "totalPrice", source = "totalPrice")
     @Mapping(target = "qrCodeBase64", source = "qrCodeBase64")
     @Mapping(target = "qrCode", source = "qrCode")
-    OrderResponse fromEntidy(Order order);
+    OrderResponse fromEntity(Order order);
 
     List<Order> map(List<OrderRequest> orders);
 

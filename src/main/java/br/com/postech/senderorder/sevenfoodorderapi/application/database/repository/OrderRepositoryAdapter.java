@@ -4,13 +4,14 @@ import br.com.postech.senderorder.sevenfoodorderapi.application.database.mapper.
 import br.com.postech.senderorder.sevenfoodorderapi.application.database.mapper.ProductMapper;
 import br.com.postech.senderorder.sevenfoodorderapi.core.domain.StatusPedido;
 import br.com.postech.senderorder.sevenfoodorderapi.core.entities.Order;
+import br.com.postech.senderorder.sevenfoodorderapi.core.entities.OrderCreation;
 import br.com.postech.senderorder.sevenfoodorderapi.core.entities.Product;
 import br.com.postech.senderorder.sevenfoodorderapi.core.ports.out.OrderRepositoryPort;
 import br.com.postech.senderorder.sevenfoodorderapi.gateway.dto.PaymentDto;
 import br.com.postech.senderorder.sevenfoodorderapi.gateway.dto.PaymentResponseDto;
 import br.com.postech.senderorder.sevenfoodorderapi.gateway.dto.ProductResponde;
-import br.com.postech.senderorder.sevenfoodorderapi.gateway.product.ProductWebClient;
 import br.com.postech.senderorder.sevenfoodorderapi.gateway.product.PaymentWebClient;
+import br.com.postech.senderorder.sevenfoodorderapi.gateway.product.ProductWebClient;
 import br.com.postech.senderorder.sevenfoodorderapi.infrastructure.entity.order.OrderEntity;
 import br.com.postech.senderorder.sevenfoodorderapi.infrastructure.entity.product.ProductEntity;
 import br.com.postech.senderorder.sevenfoodorderapi.infrastructure.repository.OrderRepository;
@@ -40,51 +41,35 @@ public class OrderRepositoryAdapter implements OrderRepositoryPort {
     private final PaymentWebClient paymentWebClient;
 
     @Override
-    public Order save(Order order, List<Product> products) {
-        try {
-            order.setStatusPedido(StatusPedido.EM_PROCESSAMENTO);
+    public Order save(OrderCreation orderCreation) {
 
+        try {
             List<ProductEntity> productEntityList = new ArrayList<>();
             AtomicReference<BigDecimal> totalPrice = new AtomicReference<>(BigDecimal.ZERO);
-            products.forEach(product -> {
-                ProductEntity productEntity = productMapper.fromModelTpEntity(product);
-                String productId = productEntity.getProductId();
-
-                ProductResponde productByCode = productWebClient.getProductByCode(productId);
-                productEntity.setPrice(productByCode.getPrice());
-                productEntity.setName(productByCode.getName());
-                productEntity.setQuantity(product.getQuantity());
-
-                ProductEntity saved = productRepository.save(productEntity);
-                productEntityList.add(saved);
-                totalPrice.set(totalPrice.get().add(saved.getPrice()));
+            orderCreation.products().forEach(product -> {
+                ProductEntity productEntity = productEntityAssembly(product);
+                Integer quantity = productEntity.getQuantity();
+                BigDecimal priceQuantity = productEntity.getPrice().multiply(BigDecimal.valueOf(quantity));
+                log.info("Price quantity: {}", priceQuantity);
+                totalPrice.set(totalPrice.get().add(priceQuantity));
+                productEntityList.add(productEntity);
             });
 
-            OrderEntity orderEntity = orderMapper.fromModelTpEntity(order);
-            orderEntity.setCode(UUID.randomUUID().toString());
-            orderEntity.setProducts(productEntityList);
-            orderEntity.setTotalPrice(totalPrice.get());
-            OrderEntity saved = orderRepository.save(orderEntity);
+            BigDecimal totalPriceForOrder = totalPrice.get();
+            OrderEntity savedOrder = assemblyAndSaveOrder(orderCreation, totalPriceForOrder, productEntityList);
 
-            PaymentDto paymentDto = PaymentDto.builder()
-                    .orderId(saved.getCode())
-                    .clientId(saved.getClientId())
-                    .transactionAmount(saved.getTotalPrice())
-                    .build();
-
-            PaymentResponseDto paymentResponseDto = paymentWebClient.setPayment(paymentDto);
-            log.info("PaymentResponseDto: {}", paymentResponseDto);
-
-            Order orderResponse = orderMapper.fromEntityToModel(saved);
-            orderResponse.setQrCodeBase64(paymentResponseDto.getQrCodeBase64());
-            orderResponse.setQrCode(paymentResponseDto.getQrCode());
-            return orderResponse;
+            PaymentResponseDto paymentResponseDto = createPaymentByOrder(savedOrder);
+            if (paymentResponseDto == null) {
+                throw new RuntimeException("Error to create payment");
+            }
+            //TODO - se o pagamento vier ok manda para prodution (cozinha)
+            return assemblyOrderResponse(savedOrder, paymentResponseDto);
         } catch (Exception e) {
             log.error("Error to save order", e);
             throw new RuntimeException("Order already exists");
         }
     }
-
+    
     @Override
     public boolean remove(Long id) {
         try {
@@ -128,5 +113,49 @@ public class OrderRepositoryAdapter implements OrderRepositoryPort {
         return orderRepository.findByCode(code)
                 .map(orderMapper::fromEntityToModel)
                 .orElse(null);
+    }
+
+    private ProductResponde findProductInfoClient(String productId) {
+        return productWebClient.getProductByCode(productId);
+    }
+
+    private PaymentResponseDto createPaymentByOrder(OrderEntity savedOrder) {
+        PaymentDto paymentDto = PaymentDto.builder()
+                .orderId(savedOrder.getCode())
+                .clientId(savedOrder.getClientId())
+                .transactionAmount(savedOrder.getTotalPrice())
+                .build();
+        return paymentWebClient.setPayment(paymentDto);
+    }
+
+    private OrderEntity assemblyAndSaveOrder(OrderCreation orderCreation,  BigDecimal totalPrice, List<ProductEntity> productEntityList) {
+        OrderEntity orderEntity = OrderEntity.builder()
+                .statusPedido(StatusPedido.EM_PROCESSAMENTO)
+                .clientId(orderCreation.clientId())
+                .code(UUID.randomUUID().toString())
+                .totalPrice(totalPrice)
+                .products(productEntityList)
+                .build();
+
+        return orderRepository.save(orderEntity);
+    }
+
+    private ProductEntity productEntityAssembly(Product product) {
+        ProductEntity productEntity = productMapper.fromModelTpEntity(product);
+        String productId = productEntity.getProductId();
+
+        ProductResponde productsInfos = findProductInfoClient(productId);
+        productEntity.setPrice(productsInfos.getPrice());
+        productEntity.setName(productsInfos.getName());
+        productEntity.setQuantity(product.getQuantity());
+
+        return productRepository.save(productEntity);
+    }
+
+    private Order assemblyOrderResponse(OrderEntity savedOrder, PaymentResponseDto paymentResponseDto) {
+        Order orderResponse = orderMapper.fromEntityToModel(savedOrder);
+        orderResponse.setQrCodeBase64(paymentResponseDto.getQrCodeBase64());
+        orderResponse.setQrCode(paymentResponseDto.getQrCode());
+        return orderResponse;
     }
 }
