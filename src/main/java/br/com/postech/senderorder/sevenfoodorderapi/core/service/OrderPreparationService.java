@@ -46,13 +46,13 @@ public class OrderPreparationService {
     }
 
     @PostConstruct
-    //@Scheduled(fixedRate = 30000)
+    //@Scheduled(fixedRate = 500)
     public void sendRequestQueue() {
         ObjectMapper objectMapper = JsonMapperUtil.getObjectMapper();
 
-        List<OrderEntity> produtosList = orderRepository.findByStatusPedido(StatusPedido.EM_PROCESSAMENTO);
-        log.info("OrderPreparationService.sendRequestQueue {}", produtosList);
-        produtosList.forEach(order -> {
+        List<OrderEntity> orderList = orderRepository.findByStatusPedido(StatusPedido.EM_PROCESSAMENTO);
+        log.info("OrderPreparationService.sendRequestQueue {}", orderList);
+        orderList.forEach(order -> {
             try {
                 log.info("OrderPreparationService.sendRequestQueue {}", order);
                 var orderMesssage = objectMapper.writeValueAsString(order);
