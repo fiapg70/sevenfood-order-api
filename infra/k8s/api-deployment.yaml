@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: sevenfood-order-api-container
-          image: marrani/sevenfood-order-api:latest
+          image: rogeriofontes/sevenfood-order-api:latest
           ports:
-            - containerPort: 9991
+            - containerPort: 9996
         
