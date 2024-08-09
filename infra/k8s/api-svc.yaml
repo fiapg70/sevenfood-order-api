@@ -7,7 +7,7 @@ spec:
   type: LoadBalancer
   ports:
       - protocol: "TCP"
-        port: 9991
-        targetPort: 9991
+        port: 9996
+        targetPort: 9996
   selector:
     app: sevenfood-order-api
