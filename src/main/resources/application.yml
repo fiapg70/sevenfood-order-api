@@ -82,6 +82,10 @@ app:
   payment-rest:
     url: ${SEVENFOOD_PAYMENT_URL}
 
+swagger:
+  api:
+    url: https://localhost:9996/api
+
 #system:
   #properties:
     #java.io.tmpdir: C:/Temp

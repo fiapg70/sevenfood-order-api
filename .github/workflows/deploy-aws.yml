@@ -40,7 +40,7 @@ jobs:
 
       - name: Configurar kubectl
         run: |
-          aws eks --region us-east-1 update-kubeconfig --name sevenfood-eks
+          aws eks --region us-east-1 update-kubeconfig --name sevenfood-eks-cluster
 
       - name: Implantação da API no Cluster EKS
         run: |
