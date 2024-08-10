@@ -7,6 +7,8 @@ server:
       enabled: false
 
 spring:
+  application:
+    name: sevenfood-order-api
   main:
     allow-circular-references: true
   datasource:
@@ -84,7 +86,7 @@ app:
 
 swagger:
   api:
-    url: https://localhost:9996/api
+    url: ${SWAGGER_API_URL}
 
 logging:
   pattern:
@@ -96,12 +98,12 @@ management:
       enabled: true
     enabled: true
     propagation:
-      type: 'w3c '
+      type: 'W3C'
     sampling:
       probability: 1.0 # para enviar 100% da amostra'
   zipkin:
     tracing:
-      endpoint: 'http://18.212.8.96/api/v2/spans # alterar o endereco do Zipkin'
+      endpoint: ${ZIPKIN_URL}
 #system:
   #properties:
     #java.io.tmpdir: C:/Temp
